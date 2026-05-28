@@ -1,0 +1,87 @@
+{
+  "name": "bytesprotector",
+  "version": "1.0.0",
+  "description": "BytesProtector — Multi-engine antivirus suite",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "org.bytesprotectorav.app",
+    "productName": "BytesProtector",
+    "copyright": "Copyright © 2026 BytesProtector",
+    "icon": "assets/icon.ico",
+    "asar": true,
+    "asarUnpack": [
+      "backend/**",
+      "config/**",
+      "assets/**",
+      "python-embed/**"
+    ],
+    "files": [
+      "**/*",
+      "!node_modules/.cache",
+      "!**/*.map",
+      "!**/*.pdb"
+    ],
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "assets/icon.png",
+      "uninstallerIcon": "assets/icon.png",
+      "installerHeaderIcon": "assets/icon.png",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "BytesProtector",
+      "runAfterFinish": true,
+      "include": "installer.nsh",
+      "artifactName": "BytesProtector-Setup-${version}.exe"
+    },
+    "mac": {
+      "icon": "assets/icon.png",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.utilities"
+    },
+    "linux": {
+      "icon": "assets/icon.png",
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Security"
+    }
+  },
+  "devDependencies": {
+    "electron": "^41.2.0",
+    "electron-builder": "^26.8.1"
+  },
+  "dependencies": {
+    "electron-store": "^11.0.2",
+    "ws": "^8.20.0"
+  }
+}
